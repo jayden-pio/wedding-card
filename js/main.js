@@ -9,10 +9,26 @@ const WEDDING_DATE = new Date('2026-12-05T13:00:00+09:00');
 
 // 갤러리 이미지 목록 — 순서대로 표시됩니다. 파일을 추가/삭제하려면 이 배열만 수정하세요.
 const GALLERY_IMAGES = [
-  './img/optimized/KakaoTalk_20260504_233217382_11.jpg', // 반지 사진 — 첫 번째
-  './img/optimized/KakaoTalk_20260504_233231164_03.jpg', // 야외 사진
-  './img/optimized/KakaoTalk_20260504_233217382.jpg',
-  './img/optimized/KakaoTalk_20260504_233217382_06.jpg',
+  './img/optimized/CHO04156.jpg',
+  './img/optimized/CHO04243.jpg',
+  './img/optimized/CHO04433.jpg',
+  './img/optimized/CHO04490.jpg',
+  './img/optimized/CHO04551.jpg',
+  './img/optimized/CHO04579.jpg',
+  './img/optimized/CHO04777.jpg',
+  './img/optimized/CHO04843.jpg',
+  './img/optimized/CHO04899.jpg',
+  './img/optimized/CHO04951.jpg',
+  './img/optimized/CHO05053.jpg',
+  './img/optimized/CHO05143.jpg',
+  './img/optimized/CHO05237.jpg',
+  './img/optimized/CHO05427.jpg',
+  './img/optimized/CHO05517.jpg',
+  './img/optimized/CHO05533.jpg',
+  './img/optimized/CHO05570.jpg',
+  './img/optimized/CHO05670.jpg',
+  './img/optimized/CHO05918.jpg',
+  './img/optimized/CHO05972.jpg',
 ];
 
 // 공유 버튼에 사용될 URL과 제목 ✏️ EDIT
