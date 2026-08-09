@@ -180,6 +180,39 @@ function initGallery() {
     grid.appendChild(thumb);
   });
 
+  // 마우스 드래그로 가로 스크롤 (데스크톱) — 터치는 네이티브 스크롤 사용
+  let isDragging = false, dragMoved = false, dragStartX = 0, dragStartScroll = 0;
+
+  grid.addEventListener('pointerdown', e => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    isDragging = true;
+    dragMoved   = false;
+    dragStartX      = e.pageX;
+    dragStartScroll = grid.scrollLeft;
+    grid.classList.add('is-dragging');
+    e.preventDefault();                 // 이미지 고스트 드래그·텍스트 선택 방지
+  });
+
+  window.addEventListener('pointermove', e => {
+    if (!isDragging) return;
+    const dx = e.pageX - dragStartX;
+    if (Math.abs(dx) > 5) dragMoved = true;
+    grid.scrollLeft = dragStartScroll - dx;
+  });
+
+  const endDrag = () => {
+    if (!isDragging) return;
+    isDragging = false;
+    grid.classList.remove('is-dragging');
+  };
+  window.addEventListener('pointerup',     endDrag);
+  window.addEventListener('pointercancel', endDrag);
+
+  // 드래그 직후 발생하는 클릭이 라이트박스를 열지 않도록 차단 (캡처 단계)
+  grid.addEventListener('click', e => {
+    if (dragMoved) { e.stopPropagation(); e.preventDefault(); dragMoved = false; }
+  }, true);
+
   // 라이트박스 이벤트
   const lightbox = document.getElementById('lightbox');
   document.getElementById('lightboxBack').addEventListener('click', closeLightbox);

@@ -400,18 +400,42 @@ button {
 }
 
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 3px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;      /* 부드럽게 정렬(자유 스크롤 방해 안 함) */
   margin-top: 0;
+  padding: 0 1.75rem 6px;             /* 첫 카드가 eyebrow(1.75rem)와 정렬 + 아래 스크롤 여유 */
+  scroll-padding-left: 1.75rem;
+  -webkit-overflow-scrolling: touch;  /* iOS 관성 스크롤 */
+  scrollbar-width: none;              /* Firefox 스크롤바 숨김 */
+  cursor: grab;                       /* 마우스로 끌어서 넘길 수 있음을 표시 */
+  user-select: none;                  /* 드래그 중 텍스트 선택 방지 */
+  -webkit-user-select: none;
+}
+
+.gallery-grid::-webkit-scrollbar {    /* Chrome/Safari 스크롤바 숨김 */
+  display: none;
+}
+
+.gallery-grid.is-dragging {           /* 마우스 드래그 중 */
+  cursor: grabbing;
+  scroll-snap-type: none;             /* 드래그 중엔 스냅 해제로 매끄럽게 */
 }
 
 .gallery-thumb {
-  aspect-ratio: 1 / 1;
+  flex: 0 0 46%;            /* 한 화면에 ~2장 + 다음 사진 살짝(2~3장) */
+  aspect-ratio: 3 / 2;     /* 원본 가로 비율 → 좌우 안 잘림 */
+  scroll-snap-align: start;
+  border-radius: 8px;
   overflow: hidden;
-  cursor: pointer;
+  cursor: grab;
   position: relative;
   -webkit-tap-highlight-color: transparent;
+}
+
+.gallery-grid.is-dragging .gallery-thumb {
+  cursor: grabbing;
 }
 
 .gallery-thumb img {
@@ -419,6 +443,8 @@ button {
   height: 100%;
   object-fit: cover;
   transition: transform 0.35s ease;
+  user-select: none;
+  -webkit-user-drag: none;   /* 이미지 고스트 드래그 방지 */
 }
 
 .gallery-thumb:hover img,
