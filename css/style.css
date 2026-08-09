@@ -424,8 +424,8 @@ button {
 }
 
 .gallery-thumb {
-  flex: 0 0 46%;            /* 한 화면에 ~2장 + 다음 사진 살짝(2~3장) */
-  aspect-ratio: 3 / 2;     /* 원본 가로 비율 → 좌우 안 잘림 */
+  flex: 0 0 86%;           /* 한 화면에 1장 크게 + 다음 사진 살짝(스와이프 힌트) */
+  aspect-ratio: 3 / 2;     /* 원본 가로 비율 → 상하좌우 안 잘림 */
   scroll-snap-align: start;
   border-radius: 8px;
   overflow: hidden;
