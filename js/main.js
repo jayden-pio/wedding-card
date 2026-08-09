@@ -32,7 +32,7 @@ const GALLERY_IMAGES = [
 ];
 
 // 공유 버튼에 사용될 URL과 제목 ✏️ EDIT
-const SHARE_URL   = 'https://msandyj.github.io/wedding-card/';
+const SHARE_URL   = 'https://msandyj.store/';
 const SHARE_TITLE = '청첩장을 보내드립니다';
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

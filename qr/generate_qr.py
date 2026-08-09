@@ -2,7 +2,7 @@
 
 사용법:
     python3 qr/generate_qr.py
-    python3 qr/generate_qr.py "https://msandyj.github.io/wedding-card/"
+    python3 qr/generate_qr.py "https://msandyj.store/"
 
 출력:
     qr/wedding-card.png  — 인쇄/모바일 공유용 PNG
@@ -24,7 +24,7 @@ except ImportError:
     print('  python3 -m pip install --user "qrcode[pil]"')
     sys.exit(1)
 
-DEFAULT_URL = "https://msandyj.github.io/wedding-card/"
+DEFAULT_URL = "https://msandyj.store/"
 OUT_DIR = Path(__file__).parent
 
 
