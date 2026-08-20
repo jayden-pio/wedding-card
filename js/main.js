@@ -282,6 +282,7 @@ function initGallery() {
   // 마우스 드래그로 가로 스크롤 (데스크톱) — 터치는 네이티브 스크롤 사용
   let dragId = null, dragMoved = false, dragStartX = 0, dragStartScroll = 0;
   let dragRaf = 0, dragTarget = 0;
+  const DRAG_SLOP = 5;                  // 이만큼 움직여야 클릭이 아니라 드래그로 본다
 
   const flushDrag = () => { dragRaf = 0; grid.scrollLeft = dragTarget; };
 
@@ -292,16 +293,23 @@ function initGallery() {
     dragStartX      = e.clientX;
     dragStartScroll = grid.scrollLeft;
     dragTarget      = dragStartScroll;
-    grid.setPointerCapture(dragId);     // 커서가 밖으로 나가도 드래그 유지
-    grid.classList.add('is-dragging');
     e.preventDefault();                 // 이미지 고스트 드래그·텍스트 선택 방지
   });
 
-  // 캡처 덕분에 리스너는 grid 에만 달면 되고, 드래그 중이 아닐 땐 아무 일도 하지 않는다
   grid.addEventListener('pointermove', e => {
     if (dragId === null || e.pointerId !== dragId) return;
     const dx = e.clientX - dragStartX;
-    if (Math.abs(dx) > 5) dragMoved = true;
+
+    if (!dragMoved) {
+      if (Math.abs(dx) <= DRAG_SLOP) return;   // 아직 단순 클릭일 수 있다
+      dragMoved = true;
+      // 포인터 캡처는 '진짜 드래그'가 시작된 뒤에만 건다.
+      // pointerdown 시점에 걸면 뒤따르는 click 이 grid 로 리타깃되어
+      // .gallery-thumb 의 click 리스너가 아예 실행되지 않는다(= 사진이 안 열림).
+      grid.setPointerCapture(dragId);          // 커서가 밖으로 나가도 드래그 유지
+      grid.classList.add('is-dragging');
+    }
+
     dragTarget = dragStartScroll - dx;
     // 입력 이벤트마다 scrollLeft 를 쓰면 프레임당 여러 번 레이아웃이 돈다 → rAF 로 1회만
     if (!dragRaf) dragRaf = requestAnimationFrame(flushDrag);
@@ -309,6 +317,7 @@ function initGallery() {
 
   const endDrag = e => {
     if (dragId === null || (e && e.pointerId !== dragId)) return;
+    // 캡처는 드래그가 실제로 시작됐을 때만 걸리므로, 걸린 경우에만 푼다
     if (grid.hasPointerCapture(dragId)) grid.releasePointerCapture(dragId);
     dragId = null;
     if (dragRaf) { cancelAnimationFrame(dragRaf); flushDrag(); }
