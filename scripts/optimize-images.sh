@@ -8,7 +8,7 @@ OUT_DIR="${SRC_DIR}/optimized"
 
 mkdir -p "${OUT_DIR}"
 
-shopt -s nullglob
+shopt -s nullglob nocaseglob   # 원본이 대문자 .JPG 여도 매칭되도록
 files=("${SRC_DIR}"/*.jpg "${SRC_DIR}"/*.jpeg "${SRC_DIR}"/*.png)
 
 if [[ ${#files[@]} -eq 0 ]]; then
