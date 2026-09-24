@@ -7,34 +7,32 @@
 // 예식 날짜·시간 (한국 표준시 KST, UTC+9)
 const WEDDING_DATE = new Date('2026-12-05T13:00:00+09:00');
 
-// 갤러리 이미지 목록 — 순서대로 표시됩니다. 파일을 추가/삭제하려면 이 배열만 수정하세요.
-const GALLERY_IMAGES = [
-  './img/optimized/CHO04156.jpg',
-  './img/optimized/CHO04243.jpg',
-  './img/optimized/CHO04433.jpg',
-  './img/optimized/CHO04490.jpg',
-  './img/optimized/CHO04551.jpg',
-  './img/optimized/CHO04579.jpg',
-  './img/optimized/CHO04777.jpg',
-  './img/optimized/CHO04843.jpg',
-  './img/optimized/CHO04899.jpg',
-  './img/optimized/CHO04951.jpg',
-  './img/optimized/CHO05053.jpg',
-  './img/optimized/CHO05143.jpg',
-  './img/optimized/CHO05237.jpg',
-  './img/optimized/CHO05427.jpg',
-  './img/optimized/CHO05517.jpg',
-  './img/optimized/CHO05533.jpg',
-  './img/optimized/CHO05570.jpg',
-  './img/optimized/CHO05670.jpg',
-  './img/optimized/CHO05918.jpg',
-  './img/optimized/CHO05972.jpg',
+// 갤러리 사진 목록 — 순서대로 표시됩니다. 사진을 추가/삭제하려면 이 배열만 수정하세요.
+// w/h 는 img/optimized/ 의 실제 픽셀 크기입니다. 카드가 원본 비율 그대로(잘림 없이)
+// 렌더링되도록 CSS 에 넘겨주고, 레이아웃 시프트(CLS)도 막아 줍니다.
+//   확인: sips -g pixelWidth -g pixelHeight img/optimized/*.jpg
+const GALLERY_PHOTOS = [
+  { file: 'main.jpg', w: 1066, h: 1600 },
+  { file: '1-1.jpg',  w: 1600, h: 1067 },   // 유일한 가로 사진
+  { file: '1-2.jpg',  w: 1066, h: 1600 },
+  { file: '1-3.jpg',  w: 1066, h: 1600 },
+  { file: '2-1.jpg',  w: 1066, h: 1600 },
+  { file: '2-2.jpg',  w: 1066, h: 1600 },
+  { file: '2-3.jpg',  w: 1066, h: 1600 },
+  { file: '2-4.jpg',  w: 1066, h: 1600 },
+  { file: '2-5.jpg',  w: 1066, h: 1600 },
+  { file: '2-6.jpg',  w: 1066, h: 1600 },
+  { file: '2-7.jpg',  w: 1066, h: 1600 },
+  { file: '2-8.jpg',  w: 1066, h: 1600 },
+  { file: '3-1.jpg',  w: 1066, h: 1600 },
+  { file: '3-2.jpg',  w: 1066, h: 1600 },
+  { file: '3-3.jpg',  w: 1066, h: 1600 },
 ];
 
-// 위 배열에서 자동 파생되는 가로 스트립용 경량본(1080px 폭).
-// scripts/make-thumbs.sh 로 생성합니다. 사진을 바꿀 땐 위 배열만 수정하면 됩니다.
-// 크게 보기(라이트박스)는 계속 위 원본(1600px)을 사용합니다.
-const THUMB_IMAGES = GALLERY_IMAGES.map(src => src.replace('/optimized/', '/thumb/'));
+// 크게 보기(라이트박스)용 1600px 본과, 가로 스트립용 경량본(1080px).
+// 각각 scripts/optimize-images.sh, scripts/make-thumbs.sh 로 생성합니다.
+const GALLERY_IMAGES = GALLERY_PHOTOS.map(p => `./img/optimized/${p.file}`);
+const THUMB_IMAGES   = GALLERY_PHOTOS.map(p => `./img/thumb/${p.file}`);
 
 // 모션 최소화 설정 (스와이프 애니메이션에서 참조)
 const REDUCE_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -253,12 +251,14 @@ function initGallery() {
   const grid = document.getElementById('galleryGrid');
   if (!grid) return;
 
-  THUMB_IMAGES.forEach((src, i) => {
+  GALLERY_PHOTOS.forEach((photo, i) => {
     const thumb = document.createElement('div');
     thumb.className = 'gallery-thumb';
     thumb.setAttribute('tabindex', '0');
     thumb.setAttribute('role', 'button');
     thumb.setAttribute('aria-label', `사진 ${i + 1} 크게 보기`);
+    // 카드 비율을 CSS 로 전달 — 사진마다 원본 비율 그대로 렌더링된다 (단위 없는 숫자)
+    thumb.style.setProperty('--ar', (photo.w / photo.h).toFixed(4));
 
     const img = document.createElement('img');
     // loading/fetchpriority 는 반드시 src 보다 먼저 지정해야 브라우저가 존중한다
@@ -266,10 +266,10 @@ function initGallery() {
     // 처음 3장은 즉시 받아둬야 첫 스와이프에서 빈 칸이 보이지 않는다
     img.setAttribute('loading', i < 3 ? 'eager' : 'lazy');
     if (i === 0) img.setAttribute('fetchpriority', 'high');
-    img.width  = 1080;             // 레이아웃 시프트 방지
-    img.height = 720;
+    img.width  = photo.w;          // 실제 비율 → 레이아웃 시프트 방지
+    img.height = photo.h;
     img.alt    = `커플 사진 ${i + 1}`;
-    img.src    = src;              // 스트립은 경량본(1080px)만 사용
+    img.src    = THUMB_IMAGES[i];  // 스트립은 경량본(1080px)만 사용
 
     thumb.appendChild(img);
     thumb.addEventListener('click',   () => openLightbox(i));
