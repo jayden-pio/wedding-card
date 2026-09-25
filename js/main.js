@@ -13,11 +13,10 @@ const WEDDING_DATE = new Date('2026-12-05T13:00:00+09:00');
 //   확인: sips -g pixelWidth -g pixelHeight img/optimized/*.jpg
 const GALLERY_PHOTOS = [
   { file: 'main.jpg', w: 1066, h: 1600 },
-  { file: '1-1.jpg',  w: 1600, h: 1067 },   // 가로 사진
+  { file: '1-1.jpg',  w: 1066, h: 1600 },
   { file: '1-2.jpg',  w: 1066, h: 1600 },
   { file: '1-3.jpg',  w: 1066, h: 1600 },
-  { file: '1-4.jpg',  w: 1600, h: 1066 },   // 가로 사진
-  { file: '1-5.jpg',  w: 1066, h: 1600 },
+  { file: '1-4.jpg',  w: 1066, h: 1600 },
   { file: '2-1.jpg',  w: 1066, h: 1600 },
   { file: '2-2.jpg',  w: 1066, h: 1600 },
   { file: '2-3.jpg',  w: 1066, h: 1600 },
@@ -30,6 +29,7 @@ const GALLERY_PHOTOS = [
   { file: '3-2.jpg',  w: 1066, h: 1600 },
   { file: '3-3.jpg',  w: 1066, h: 1600 },
   { file: '3-4.jpg',  w: 1011, h: 1600 },
+  { file: '3-5.jpg',  w: 1080, h: 1350 },   // 4:5 — 다른 사진(2:3)보다 살짝 넓다
   { file: '4-1.jpg',  w: 1066, h: 1600 },
   { file: '4-2.jpg',  w: 1066, h: 1600 },
 ];
