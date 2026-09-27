@@ -1,0 +1,13 @@
+# 이 사이트는 검색 결과에 노출되지 않아야 한다.
+#
+# 다만 여기서 Disallow 로 크롤링을 막지는 않는다. 이유:
+#  1) 크롤링을 막으면 크롤러가 각 페이지의 <meta name="robots" content="noindex">
+#     를 읽지 못해서, 외부 링크만 있어도 URL 이 검색 결과에 남을 수 있다.
+#  2) 카카오톡 링크 미리보기 봇(kakaotalk-scrap)은 robots.txt 를 따르므로,
+#     Disallow 를 걸면 청첩장 공유 시 미리보기 카드가 깨진다.
+#
+# 따라서 크롤링은 허용하고, 색인 차단은 index.html / 404.html 의
+# noindex 메타 태그로 처리한다. sitemap.xml 도 의도적으로 두지 않는다.
+
+User-agent: *
+Allow: /
