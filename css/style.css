@@ -655,11 +655,16 @@ button {
   gap: 4px;
   padding: 0.6rem 0.25rem;
   border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  box-shadow:
+    0 1px 3px rgba(43, 36, 33, 0.06),
+    inset 0 0 0 1px rgba(43, 36, 33, 0.04);
   font-size: 0.76rem;
   font-weight: 600;
   text-decoration: none;
   text-align: center;
-  transition: opacity 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -669,12 +674,18 @@ button {
   flex-shrink: 0;
 }
 
-.map-btn:hover { opacity: 0.82; }
+.map-btn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 3px 8px rgba(43, 36, 33, 0.10),
+    inset 0 0 0 1px rgba(43, 36, 33, 0.05);
+}
 
-.map-btn--kakao  { background: #FAE300; color: #3A1D1D; }
-.map-btn--naver  { background: #03C75A; color: #fff; }
-.map-btn--tmap   { background: #E31837; color: #fff; }
-.map-btn--google { background: #4285F4; color: #fff; }
+/* 브랜드 hue 는 유지하되 채도를 낮추고, 명도를 90→86→82→79% 로 계단지게 */
+.map-btn--kakao  { --btn-bg: #F2EDD9; --btn-fg: #6B5A24; }
+.map-btn--naver  { --btn-bg: #D2E4D9; --btn-fg: #2F5B3F; }
+.map-btn--tmap   { --btn-bg: #E1C5C2; --btn-fg: #7E3B35; }
+.map-btn--google { --btn-bg: #BAC8D9; --btn-fg: #2D4362; }
 
 /* Transport accordion */
 .transport-accordions {
@@ -721,9 +732,21 @@ button {
 }
 
 .accordion-icon {
-  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  line-height: 1;
   flex-shrink: 0;
 }
+
+.accordion-icon--subway  { border-radius: 50%; }
+.accordion-icon--parking { border-radius: 4px; }
 
 .accordion-body {
   padding: 0 0 1.25rem;
