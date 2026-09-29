@@ -567,7 +567,7 @@ function initMapViewer() {
 
 // ── 마음 전하실 곳 (신랑측/신부측 접히는 패널) ─────────────
 function initGive() {
-  const VIEW_SWAP_MS = 160;   // 나가는 뷰 페이드아웃 시간 (CSS giveViewOut 과 맞춤)
+  const VIEW_SWAP_MS = 160;   // 나가는 뷰 페이드아웃 시간 (CSS panelViewOut 과 맞춤)
   const PANEL_MS     = 460;   // 패널 높이 트랜지션 시간 (CSS .give-panel 과 맞춤)
 
   document.querySelectorAll('.give').forEach(give => {
@@ -667,12 +667,32 @@ function initGive() {
 
 // ── 아코디언 ─────────────────────────────────────────────
 function initAccordions() {
-  document.querySelectorAll('.accordion-btn').forEach(btn => {
+  document.querySelectorAll('.accordion').forEach(acc => {
+    const btn   = acc.querySelector('.accordion-btn');
+    const body  = acc.querySelector('.accordion-body');
+    const inner = acc.querySelector('.accordion-body-inner');
+
+    const syncHeight = () => {
+      if (acc.classList.contains('is-open')) body.style.height = inner.offsetHeight + 'px';
+    };
+
+    // 글꼴 로드·화면 회전으로 내용 높이가 변하면 패널이 따라가게 한다
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(syncHeight).observe(inner);
+    } else {
+      window.addEventListener('resize', syncHeight);
+    }
+
     btn.addEventListener('click', () => {
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      const body   = btn.nextElementSibling;
-      btn.setAttribute('aria-expanded', String(!isOpen));
-      body.hidden = isOpen;
+      if (acc.classList.contains('is-open')) {
+        acc.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        body.style.height = '0px';
+      } else {
+        acc.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        syncHeight();
+      }
     });
   });
 }

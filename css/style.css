@@ -715,12 +715,12 @@ button {
   margin-left: auto;
   font-size: 0.78rem;
   color: var(--muted);
-  transition: transform 0.25s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   flex-shrink: 0;
 }
 
 .accordion-btn[aria-expanded="true"]::after {
-  transform: rotate(-180deg);
+  transform: rotate(180deg);
 }
 
 .accordion-icon {
@@ -740,11 +740,22 @@ button {
 .accordion-icon--subway  { border-radius: 50%; }
 .accordion-icon--parking { border-radius: 4px; }
 
+/* 높이 애니메이션 — height 는 JS 가 px 로 채운다 (.give-panel 과 동일) */
 .accordion-body {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.44s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-body-inner {
   padding: 0 0 1.25rem;
   font-size: 0.84rem;
   color: var(--muted);
   line-height: 1.8;
+}
+
+.accordion.is-open .accordion-body-inner {
+  animation: panelViewIn 0.34s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
 }
 
 .accordion-body p {
@@ -978,16 +989,17 @@ button {
 /* 뷰 전환 */
 .give-view { will-change: opacity, transform; }
 .give.is-open .give-view:not([hidden]) {
-  animation: giveViewIn 0.34s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+  animation: panelViewIn 0.34s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
 }
-.give-view.is-leaving { animation: giveViewOut 0.16s ease-in forwards; }
+.give-view.is-leaving { animation: panelViewOut 0.16s ease-in forwards; }
 
-@keyframes giveViewIn {
+/* 마음 전하실 곳 패널과 교통 아코디언이 함께 쓰는 연출 */
+@keyframes panelViewIn {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: none; }
 }
 
-@keyframes giveViewOut {
+@keyframes panelViewOut {
   to { opacity: 0; transform: translateY(-5px); }
 }
 
@@ -1200,6 +1212,8 @@ button {
   .map-btn { transition: none; }
   .couple-tel { transition: none; }
   .accordion-btn::after { transition: none; }
+  .accordion-body { transition: none; }
+  .accordion.is-open .accordion-body-inner { animation: none; }
   .lightbox-back,
   .lightbox-prev,
   .lightbox-next { transition: none; }
