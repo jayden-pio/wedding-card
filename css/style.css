@@ -562,9 +562,11 @@ button {
   opacity: 1;
 }
 
+/* BGM 버튼(fixed, top 16px / right 16px / 44x44)이 라이트박스 위에 그대로 떠 있으므로
+   닫기 버튼은 그 아래로 내려 겹치지 않게 한다. 좌표계는 BGM 버튼과 동일하게 맞춘다. */
 .lightbox-close {
-  top: calc(0.75rem + env(safe-area-inset-top, 0px));
-  right: calc(0.75rem + env(safe-area-inset-right, 0px));
+  top: calc(16px + 44px + 8px);
+  right: 16px;
   font-size: 1.2rem;
 }
 
