@@ -263,30 +263,6 @@ button {
   font-family: var(--font-serif);
   font-size: 1.25rem;
   font-weight: 400;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-}
-
-.couple-tel {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  font-size: 0.7rem;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  text-decoration: none;
-  color: var(--muted);
-  flex-shrink: 0;
-  transition: border-color 0.2s, color 0.2s;
-}
-
-.couple-tel:hover {
-  border-color: var(--accent);
-  color: var(--accent);
 }
 
 .couple-divider {
@@ -1210,7 +1186,6 @@ button {
   .give-view.is-leaving { animation: none; }
   .share-btn { transition: none; }
   .map-btn { transition: none; }
-  .couple-tel { transition: none; }
   .accordion-btn::after { transition: none; }
   .accordion-body { transition: none; }
   .accordion.is-open .accordion-body-inner { animation: none; }
