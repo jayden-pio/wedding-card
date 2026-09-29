@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initGallery();
   initMapViewer();
   initAccordions();
-  initCopyButtons();
+  initGive();
   initShare();
   initRevealOnScroll();
   initBgm();
@@ -566,6 +566,106 @@ function initMapViewer() {
   document.addEventListener('keydown', e => { if (!viewer.hidden && e.key === 'Escape') closeMapViewer(); });
 }
 
+// ── 마음 전하실 곳 (신랑측/신부측 접히는 패널) ─────────────
+function initGive() {
+  const VIEW_SWAP_MS = 160;   // 나가는 뷰 페이드아웃 시간 (CSS giveViewOut 과 맞춤)
+  const PANEL_MS     = 460;   // 패널 높이 트랜지션 시간 (CSS .give-panel 과 맞춤)
+
+  document.querySelectorAll('.give').forEach(give => {
+    const head   = give.querySelector('.give-head');
+    const panel  = give.querySelector('.give-panel');
+    const inner  = give.querySelector('.give-panel-inner');
+    const pick   = give.querySelector('.give-view--pick');
+    const detail = give.querySelector('.give-view--detail');
+    const copyBtn = detail.querySelector('.give-copy');
+    const label   = head.dataset.label || head.querySelector('.give-label').textContent;
+
+    const syncHeight = () => {
+      if (give.classList.contains('is-open')) panel.style.height = inner.offsetHeight + 'px';
+    };
+
+    // 뷰가 바뀌거나 글꼴 로드·화면 회전으로 내용 높이가 변하면 패널이 따라가게 한다
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(syncHeight).observe(inner);
+    } else {
+      window.addEventListener('resize', syncHeight);
+    }
+
+    let resetTimer = null;
+
+    function open() {
+      give.classList.add('is-open');
+      head.setAttribute('aria-expanded', 'true');
+      clearTimeout(resetTimer);
+      syncHeight();
+    }
+
+    function close() {
+      give.classList.remove('is-open', 'is-detail');
+      head.setAttribute('aria-expanded', 'false');
+      head.removeAttribute('aria-label');
+      panel.style.height = '0px';
+      // 닫힌 뒤엔 다시 인물 선택 화면부터 시작하도록 되돌린다
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        if (give.classList.contains('is-open')) return;
+        detail.hidden = true;
+        detail.classList.remove('is-leaving');
+        pick.hidden = false;
+        pick.classList.remove('is-leaving');
+      }, REDUCE_MOTION.matches ? 0 : PANEL_MS);
+    }
+
+    function showView(next) {
+      const prev = next === detail ? pick : detail;
+      if (!next.hidden) return;
+
+      const swap = () => {
+        prev.classList.remove('is-leaving');
+        prev.hidden = true;
+        next.hidden = false;
+        syncHeight();
+      };
+
+      if (REDUCE_MOTION.matches) {
+        swap();
+      } else {
+        prev.classList.add('is-leaving');
+        setTimeout(swap, VIEW_SWAP_MS);
+      }
+    }
+
+    // 헤더: 상세 화면이면 '뒤로', 그 외에는 열기/닫기
+    head.addEventListener('click', () => {
+      if (give.classList.contains('is-detail')) {
+        give.classList.remove('is-detail');
+        head.removeAttribute('aria-label');
+        showView(pick);
+        return;
+      }
+      give.classList.contains('is-open') ? close() : open();
+    });
+
+    // 인물 선택 → 계좌 상세로
+    give.querySelectorAll('.give-person').forEach(person => {
+      person.addEventListener('click', () => {
+        const { name, bank, account } = person.dataset;
+        detail.querySelector('.give-account-name').textContent   = name;
+        detail.querySelector('.give-account-bank').textContent   = bank;
+        detail.querySelector('.give-account-number').textContent = account;
+        copyBtn.dataset.copy = account;
+        copyBtn.setAttribute('aria-label', `${name} ${bank} ${account} 계좌번호 복사`);
+
+        give.classList.add('is-detail');
+        head.setAttribute('aria-label', `${label} · 다른 분 선택하기`);
+        showView(detail);
+      });
+    });
+
+    copyBtn.addEventListener('click', () => copyText(copyBtn.dataset.copy));
+  });
+}
+
 // ── 아코디언 ─────────────────────────────────────────────
 function initAccordions() {
   document.querySelectorAll('.accordion-btn').forEach(btn => {
@@ -578,21 +678,17 @@ function initAccordions() {
   });
 }
 
-// ── 계좌번호 복사 버튼 ────────────────────────────────────
+// ── 계좌번호 복사 ─────────────────────────────────────────
 let toastTimer = null;
 
-function initCopyButtons() {
-  document.querySelectorAll('.copy-btn').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const text = btn.dataset.copy;
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch {
-        fallbackCopy(text);
-      }
-      showToast('계좌번호가 복사되었어요');
-    });
-  });
+async function copyText(text) {
+  if (!text) return;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    fallbackCopy(text);
+  }
+  showToast('계좌번호가 복사되었어요');
 }
 
 function fallbackCopy(text) {

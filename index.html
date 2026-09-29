@@ -272,61 +272,129 @@
     <div class="account-accordions">
 
       <!-- 신랑 측 -->
-      <div class="accordion">
-        <button class="accordion-btn" type="button" aria-expanded="false" aria-controls="account-groom">
-          <span>신랑 측</span>
+      <div class="give give--groom">
+        <button class="give-head" type="button" aria-expanded="false" aria-controls="give-groom" data-label="신랑측">
+          <span class="give-icon" aria-hidden="true">
+            <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8.3 12.1c0-3.3 2.6-5.9 5.7-5.9s5.7 2.6 5.7 5.9c0 3.6-2.6 6.4-5.7 6.4s-5.7-2.8-5.7-6.4Z"/>
+              <path d="M8.5 11.3c1.6-.5 2.8-1.4 3.5-2.6 1.4 1.7 3.7 2.7 6.2 2.7"/>
+              <path d="M11.8 13.1h.01M16.2 13.1h.01"/>
+              <path d="M12.7 15.5c.8.6 1.8.6 2.6 0"/>
+              <path d="M10.6 19.2 14 21.2l3.4-2"/>
+              <path d="M11.3 21.5v2.7L14 22.85Z"/>
+              <path d="M16.7 21.5v2.7L14 22.85Z"/>
+            </svg>
+          </span>
+          <span class="give-label">신랑측</span>
+          <span class="give-chevron" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3.6 10.2 8 5.8l4.4 4.4"/>
+            </svg>
+          </span>
         </button>
-        <div class="accordion-body" id="account-groom" hidden>
-          <!-- ✏️ EDIT: 신랑 측 계좌 정보 3줄 수정 (은행명, 계좌번호, 예금주) -->
-          <div class="account-card">
-            <div class="account-info">
-              <span class="account-who">신랑 아버지 표형근</span>
-              <span class="account-bank">지역농.축협</span>
-              <span class="account-number">205018-52-121951</span>
+
+        <div class="give-panel" id="give-groom">
+          <div class="give-panel-inner">
+
+            <!-- ① 인물 선택 -->
+            <div class="give-view give-view--pick">
+              <p class="give-ask">어떤 분에게 마음을 전하시고 싶으신가요?</p>
+              <div class="give-people">
+                <!-- ✏️ EDIT: 신랑 측 계좌 (data-name 예금주 / data-bank 은행 / data-account 계좌번호) -->
+                <button type="button" class="give-person" style="--i:0"
+                        data-name="표명선" data-bank="카카오뱅크" data-account="3333-09-6635420">
+                  <span>신랑</span>
+                </button>
+                <button type="button" class="give-person" style="--i:1"
+                        data-name="표형근" data-bank="지역농.축협" data-account="205018-52-121951">
+                  <span>신랑<br>아버지</span>
+                </button>
+                <button type="button" class="give-person" style="--i:2"
+                        data-name="송효근" data-bank="농협" data-account="205018-56-162771">
+                  <span>신랑<br>어머니</span>
+                </button>
+              </div>
             </div>
-            <button type="button" class="copy-btn" data-copy="205018-52-121951">복사</button>
-          </div>
-          <div class="account-card">
-            <div class="account-info">
-              <span class="account-who">신랑 어머니 송효근</span>
-              <span class="account-bank">농협</span>
-              <span class="account-number">205018-56-162771</span>
+
+            <!-- ② 계좌 상세 -->
+            <div class="give-view give-view--detail" hidden>
+              <p class="give-account" role="status" aria-live="polite">
+                <span class="give-account-name"></span>
+                <span class="give-account-sep" aria-hidden="true">·</span>
+                <span class="give-account-bank"></span>
+                <span class="give-account-number"></span>
+              </p>
+              <button type="button" class="give-copy" data-copy="">
+                <svg class="give-copy-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="5.8" y="5.8" width="8.4" height="8.4" rx="1.8"/>
+                  <path d="M10.6 3.4V3a1.8 1.8 0 0 0-1.8-1.8H3.6A1.8 1.8 0 0 0 1.8 3v5.2A1.8 1.8 0 0 0 3.6 10h.4"/>
+                </svg>
+                계좌번호 복사
+              </button>
             </div>
-            <button type="button" class="copy-btn" data-copy="205018-56-162771">복사</button>
-          </div>
-          <div class="account-card">
-            <div class="account-info">
-              <span class="account-who">신랑 표명선</span>
-              <span class="account-bank">카카오뱅크</span>
-              <span class="account-number">3333-09-6635420</span>
-            </div>
-            <button type="button" class="copy-btn" data-copy="3333-09-6635420">복사</button>
+
           </div>
         </div>
       </div>
 
       <!-- 신부 측 -->
-      <div class="accordion">
-        <button class="accordion-btn" type="button" aria-expanded="false" aria-controls="account-bride">
-          <span>신부 측</span>
+      <div class="give give--bride">
+        <button class="give-head" type="button" aria-expanded="false" aria-controls="give-bride" data-label="신부측">
+          <span class="give-icon" aria-hidden="true">
+            <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 12.3c0-3.1 2.2-5.6 5-5.6s5 2.5 5 5.6c0 3.4-2.2 6.1-5 6.1s-5-2.7-5-6.1Z"/>
+              <path d="M9.2 11.5c1.5-.5 2.6-1.4 3.3-2.5 1.3 1.6 3.4 2.6 5.7 2.6"/>
+              <path d="M11.9 13.3h.01M16.1 13.3h.01"/>
+              <path d="M12.8 15.6c.8.6 1.7.6 2.5 0"/>
+              <path d="M9.6 9.3C6.9 10.9 5.4 14 5.6 17.3c.1 2.6 1.1 4.9 2.6 6.4"/>
+              <path d="M18.4 9.3c2.7 1.6 4.2 4.7 4 8-.1 2.6-1.1 4.9-2.6 6.4"/>
+              <path d="M10.7 19.1 14 21.1l3.3-2"/>
+            </svg>
+          </span>
+          <span class="give-label">신부측</span>
+          <span class="give-chevron" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3.6 10.2 8 5.8l4.4 4.4"/>
+            </svg>
+          </span>
         </button>
-        <div class="accordion-body" id="account-bride" hidden>
-          <!-- ✏️ EDIT: 신부 측 계좌 정보 수정 -->
-          <div class="account-card">
-            <div class="account-info">
-              <span class="account-who">신부 어머니 강정진</span>
-              <span class="account-bank">우리은행</span>
-              <span class="account-number">1002-235-623203</span>
+
+        <div class="give-panel" id="give-bride">
+          <div class="give-panel-inner">
+
+            <!-- ① 인물 선택 -->
+            <div class="give-view give-view--pick">
+              <p class="give-ask">어떤 분에게 마음을 전하시고 싶으신가요?</p>
+              <div class="give-people">
+                <!-- ✏️ EDIT: 신부 측 계좌 -->
+                <button type="button" class="give-person" style="--i:0"
+                        data-name="이예지" data-bank="우리은행" data-account="1002-257-442540">
+                  <span>신부</span>
+                </button>
+                <button type="button" class="give-person" style="--i:1"
+                        data-name="강정진" data-bank="우리은행" data-account="1002-235-623203">
+                  <span>신부<br>어머니</span>
+                </button>
+              </div>
             </div>
-            <button type="button" class="copy-btn" data-copy="1002-235-623203">복사</button>
-          </div>
-          <div class="account-card">
-            <div class="account-info">
-              <span class="account-who">신부 이예지</span>
-              <span class="account-bank">우리은행</span>
-              <span class="account-number">1002-257-442540</span>
+
+            <!-- ② 계좌 상세 -->
+            <div class="give-view give-view--detail" hidden>
+              <p class="give-account" role="status" aria-live="polite">
+                <span class="give-account-name"></span>
+                <span class="give-account-sep" aria-hidden="true">·</span>
+                <span class="give-account-bank"></span>
+                <span class="give-account-number"></span>
+              </p>
+              <button type="button" class="give-copy" data-copy="">
+                <svg class="give-copy-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="5.8" y="5.8" width="8.4" height="8.4" rx="1.8"/>
+                  <path d="M10.6 3.4V3a1.8 1.8 0 0 0-1.8-1.8H3.6A1.8 1.8 0 0 0 1.8 3v5.2A1.8 1.8 0 0 0 3.6 10h.4"/>
+                </svg>
+                계좌번호 복사
+              </button>
             </div>
-            <button type="button" class="copy-btn" data-copy="1002-257-442540">복사</button>
+
           </div>
         </div>
       </div>
