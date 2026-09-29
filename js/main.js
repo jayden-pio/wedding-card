@@ -340,7 +340,6 @@ function initGallery() {
   // 라이트박스 이벤트
   const lightbox = document.getElementById('lightbox');
   document.getElementById('lightboxBack').addEventListener('click', closeLightbox);
-  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
   document.getElementById('lightboxPrev').addEventListener('click', () => navigate(-1));
   document.getElementById('lightboxNext').addEventListener('click', () => navigate(1));
 
