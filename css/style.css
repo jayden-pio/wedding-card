@@ -816,8 +816,7 @@ button {
   animation: slideInRight 0.25s ease;
 }
 
-.map-viewer-back,
-.map-viewer-close {
+.map-viewer-back {
   position: absolute;
   background: none;
   border: none;
@@ -843,14 +842,7 @@ button {
   letter-spacing: 0.03em;
 }
 
-.map-viewer-close {
-  top: calc(0.75rem + env(safe-area-inset-top, 0px));
-  right: calc(0.75rem + env(safe-area-inset-right, 0px));
-  font-size: 1.2rem;
-}
-
-.map-viewer-back:hover,
-.map-viewer-close:hover { opacity: 1; }
+.map-viewer-back:hover { opacity: 1; }
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SECTION — ACCOUNT

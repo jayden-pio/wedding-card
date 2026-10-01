@@ -546,7 +546,6 @@ function closeMapViewer(shouldGoBack = true) {
 function initMapViewer() {
   const thumb  = document.getElementById('mapThumb');
   const viewer = document.getElementById('mapViewer');
-  const closeBtn = document.getElementById('mapViewerClose');
   const backBtn  = document.getElementById('mapViewerBack');
   if (!thumb || !viewer) return;
 
@@ -560,7 +559,6 @@ function initMapViewer() {
   thumb.addEventListener('click', open);
   thumb.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
   backBtn.addEventListener('click', () => closeMapViewer());
-  closeBtn.addEventListener('click', () => closeMapViewer());
   viewer.addEventListener('click', e => { if (e.target === viewer) closeMapViewer(); });
   document.addEventListener('keydown', e => { if (!viewer.hidden && e.key === 'Escape') closeMapViewer(); });
 }
