@@ -46,6 +46,10 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+  -webkit-touch-callout: none;  /* iOS Safari 길게 누르기 저장 메뉴 차단 */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 a {

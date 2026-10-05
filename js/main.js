@@ -58,6 +58,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initShare();
   initRevealOnScroll();
   initBgm();
+
+  // 이미지 길게 누르기/우클릭 시 저장 메뉴 차단 (Android Chrome 등)
+  document.addEventListener('contextmenu', e => {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
 });
 
 // ── 캘린더 렌더링 ─────────────────────────────────────────
