@@ -8,3 +8,9 @@
 
 # OS / 편집기 부산물
 .DS_Store
+
+# 하네스 중간 산출물 (감사 리포트에 개인정보가 들어갈 수 있어 공개 배포 금지)
+_workspace*/
+
+# Claude Code 개인 설정 (로컬 경로·권한 규칙 — 공개 배포 금지)
+.claude/settings.local.json

@@ -43,3 +43,6 @@ done
 
 echo ""
 echo "완료. 썸네일 → ${OUT_DIR}  (총 $(du -sh "${OUT_DIR}" | cut -f1))"
+
+# 촬영·편집 메타데이터(카메라·Photoshop·시각) 제거 — 무손실
+python3 "${ROOT}/scripts/strip-metadata.py" "${OUT_DIR}"/*.jpg > /dev/null

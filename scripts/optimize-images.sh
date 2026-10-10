@@ -26,3 +26,6 @@ done
 
 echo ""
 echo "완료. 최적화된 이미지 → ${OUT_DIR}"
+
+# 촬영·편집 메타데이터(카메라·Photoshop·시각) 제거 — 무손실
+python3 "$(dirname "$0")/strip-metadata.py" "${OUT_DIR}"/*.jpg > /dev/null
